@@ -34,6 +34,6 @@ class CreateFilmModelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('film_models');
+        Schema::dropIfExists('film');
     }
 }

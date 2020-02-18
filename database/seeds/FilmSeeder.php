@@ -11,6 +11,7 @@ class FilmSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $sql = file_get_contents(database_path() . '/seeds/tp1.sql'); 
+        DB::statement($sql);
     }
 }
