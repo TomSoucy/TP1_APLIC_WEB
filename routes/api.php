@@ -17,3 +17,6 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->group( function(){
     Route::post('film/create', 'FilmController@create');
 });
+
+    Route::get('films','FilmController@index');
+    Route::post('films','FilmController@store');
