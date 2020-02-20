@@ -23,7 +23,7 @@ class CreateFilmModelsTable extends Migration
             $table->enum('rating', ['G', 'PG','PG-13','R','NC-17'])->nullable()->default('G');
             $table->set('special_features',['Trailers','Commentaries','Deleted Scenes','Behind the Scenes'])->nullable();
             $table->string('image')->nullable();
-            $table->timestamps('created_at');
+            $table->timestamps();
         });
     }
 
