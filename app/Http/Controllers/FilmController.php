@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-<<<<<<< HEAD
-=======
 use App\Film;
 use App\Http\Resources\FilmResource;
->>>>>>> Seed
 
 class FilmController extends Controller
 {
@@ -18,11 +15,8 @@ class FilmController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
         //
-=======
         return Film::all();
->>>>>>> Seed
     }
 
     /**
@@ -43,30 +37,9 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
-<<<<<<< HEAD
-        //
-    }
-=======
-    
-        //$donnees = $request->all();
-        
-        // $unFilm = Film::create([ 
-        //   'title' => $donnees['title'], 
-        //   'description' => $donnees['description'],
-        //   'release_year' => $donnees['release_year'],
-        //   'language_id' => $donnees['language_id'],
-        //   'rental_duration' => $donnees['rental_duration'],
-        //   'rental_rate' => $donnees['rental_rate'],
-        //   'replacement_cost' => $donnees['replacement_cost']
-        //  ]);
-
-        $film = Film::create($request->all());
-    
-        return $film;
 
     }
-    
->>>>>>> Seed
+
 
     /**
      * Display the specified resource.
