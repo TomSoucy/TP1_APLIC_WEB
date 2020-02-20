@@ -13,10 +13,5 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:api')->group( function(){
-    Route::post('film/create', 'FilmController@create');
-});
-
-    Route::get('films','FilmController@index');
+    Route::get('films','FilmController@create');
     Route::post('films','FilmController@store');
