@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Film;
 use App\Http\Resources\FilmResource;
 use App\Http\Requests\filmRequest;
+use Illuminate\Support\Facades\DB;
 
 class FilmController extends Controller
 {
@@ -47,9 +48,12 @@ class FilmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showActor($id)
     {
-        //
+        $idActeur = DB::table('film_actor')->where('film_id',$id)->value('actor_id');
+        $acteur = DB::table('actors')->where('id',$idActeur)->value('firt_name', 'last_name');
+
+        return $acteur;
     }
 
     /**
@@ -58,9 +62,10 @@ class FilmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($idFilm)
     {
-        //
+        $film = \App\filmModels::where('id',$idFilm)->get();
+        return $film;
     }
 
     /**
@@ -70,9 +75,18 @@ class FilmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(filmRequest $request, $id)
     {
-        //
+        $film = \App\filmModels::find($id);
+        $film->title = Input::get('title');
+        $film->description = Input::get('description');
+        $film->release_year = Input::get('release_year');
+        $film->language_id = Input::get('language_id');
+        $film->length = Input::get('length');
+        $film->rating = Input::get('rating');
+        $film->special_features = Input::get('special_features');
+        $film->image = Input::get('image');
+        $film->save();
     }
 
     /**
@@ -83,6 +97,6 @@ class FilmController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('films')->where('id', '=', $id)->delete();
     }
 }

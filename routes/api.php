@@ -14,3 +14,7 @@ use Illuminate\Http\Request;
 |
 */
     Route::post('api/film','FilmController@store');
+    Route::get('api/film/{idFilm}/edit','FilmController@edit');
+    Route::put('api/film/{idFilm}','FilmController@update');
+    Route::delete('api/film/{idFilm}','FilmController@destroy');
+    Route::get('api/film/{idFilm}/acteur','FilmController@showActor');
