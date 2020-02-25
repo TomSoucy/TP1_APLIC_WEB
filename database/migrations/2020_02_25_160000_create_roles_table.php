@@ -16,7 +16,7 @@ class CreateRolesTable extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->unsignedBigInteger('id');
                 $table->foreign('id')->references('role_id')->on('users');
-            $table->string('name',255);
+            $table->set('name',['Admin','User']);
         });
     }
 
