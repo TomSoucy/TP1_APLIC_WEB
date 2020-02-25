@@ -7,6 +7,7 @@ use App\Film;
 use App\Http\Resources\FilmResource;
 use App\Http\Requests\filmRequest;
 use Illuminate\Support\Facades\DB;
+use App\Films;
 
 class FilmController extends Controller
 {
@@ -17,7 +18,7 @@ class FilmController extends Controller
      */
     public function index()
     {
-        return Film::all();
+        return Films::paginate(20);
     }
 
 
@@ -30,7 +31,7 @@ class FilmController extends Controller
     public function store(filmRequest $request)
     {
           $film = $request->validated();
-          $film = new \App\filmModels;
+          $film = new Films;
           $film->title = request('title');
           $film->description = request('description');
           $film->release_year = request('release_year');
@@ -64,7 +65,7 @@ class FilmController extends Controller
      */
     public function edit($idFilm)
     {
-        $film = \App\filmModels::where('id',$idFilm)->get();
+        $film = Films::where('id',$idFilm)->get();
         return $film;
     }
 
@@ -77,7 +78,7 @@ class FilmController extends Controller
      */
     public function update(filmRequest $request, $id)
     {
-        $film = \App\filmModels::find($id);
+        $film = Films::find($id);
         $film->title = Input::get('title');
         $film->description = Input::get('description');
         $film->release_year = Input::get('release_year');
