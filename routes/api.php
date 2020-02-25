@@ -14,3 +14,5 @@ use Illuminate\Http\Request;
 |
 */
     Route::post('api/film','FilmController@store');
+    Route::get('/admin', 'AdminController@index')->name('admin')->middleware('admin'); //A redefinir le AdminController@index.
+    Route::get('/user', 'AdminController@index')->name('user')->middleware('user');     
