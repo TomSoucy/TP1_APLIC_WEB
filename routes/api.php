@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-    Route::get('films', 'FilmController@index');
-    Route::post('film','FilmController@store');
-    Route::get('film/{idFilm}/edit','FilmController@edit');
-    Route::put('film/{idFilm}','FilmController@update');
-    Route::delete('film/{idFilm}','FilmController@destroy');
+    Route::get('films', 'FilmController@index'); //afficher tous les films
+    Route::post('film','FilmController@store'); //enregistrer un film
+    Route::get('film/{idFilm}/edit','FilmController@edit'); //consulter 1 film
+    Route::put('film/{idFilm}','FilmController@update'); //modification d'un film
+    Route::delete('film/{idFilm}','FilmController@destroy'); //suppression d'un film
     Route::get('film/{idFilm}/acteur','FilmController@showActor');

@@ -30,7 +30,7 @@ class FilmController extends Controller
      */
     public function store(filmRequest $request)
     {
-          $film = $request->validated();
+
           $film = new Films;
           $film->title = request('title');
           $film->description = request('description');
@@ -79,14 +79,14 @@ class FilmController extends Controller
     public function update(filmRequest $request, $id)
     {
         $film = Films::find($id);
-        $film->title = Input::get('title');
-        $film->description = Input::get('description');
-        $film->release_year = Input::get('release_year');
-        $film->language_id = Input::get('language_id');
-        $film->length = Input::get('length');
-        $film->rating = Input::get('rating');
-        $film->special_features = Input::get('special_features');
-        $film->image = Input::get('image');
+        $film->title = request('title');
+        $film->description = request('description');
+        $film->release_year = request('release_year');
+        $film->language_id = request('language_id');
+        $film->length = request('length');
+        $film->rating = request('rating');
+        $film->special_features = request('special_features');
+        $film->image = request('image');
         $film->save();
     }
 

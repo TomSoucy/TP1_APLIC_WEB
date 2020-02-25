@@ -30,7 +30,7 @@ class filmRequest extends FormRequest
             'language_id'=> 'required|Numeric',
             'length'=>'nullable|Numeric',
             'rating'=> 'max:5',
-            'special_features'=>'nullable|max:255',
+            'special_features'=>'nullable|in:Trailers,Commentaries,Deleted Scenes,Behind the Scenes',
             'image'=>'nullable|Image'
         ];
     }
