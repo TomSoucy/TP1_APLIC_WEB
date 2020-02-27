@@ -15,4 +15,11 @@ use Illuminate\Http\Request;
 */
     Route::post('api/film','FilmController@store');
     Route::get('/admin', 'AdminController@index')->name('admin')->middleware('admin'); //A redefinir le AdminController@index.
-    Route::get('/user', 'AdminController@index')->name('user')->middleware('user');     
+    Route::get('/user', 'AdminController@index')->name('user')->middleware('user');  
+    Route::get('login', array('uses' => 'LoginController@showLogin'));
+    Route::post('login', array('uses' => 'LoginController@doLogin'));
+   /*  Route::get('/user', function () {
+        return new UserResource(User::find(1));
+    }); */
+
+    /* https://laravel.com/docs/5.8/api-authentication */

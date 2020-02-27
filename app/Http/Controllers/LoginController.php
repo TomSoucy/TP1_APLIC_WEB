@@ -26,6 +26,77 @@ class LoginController extends Controller
                 break;
         }
     }
+
+    public function showUser(User $user)
+    {
+        if(auth()->user()->id == $user->get('id')){
+            return view('display', compact(['id', 'login', 'email' ,'last_name', 'first_name', 'role_id'])->toJson());
+    }
+        else {
+            abort(403, 'Unauthorized to consulte another user informations.');
+        }
+}
+    public function addUser(){
+        $user = $request->validated();
+        $user = new \App\User;
+        $user->id = request('id');
+        $user->login = request('login');
+        $user->email = request('email');
+        $user->last_name = request('last_name');
+        $user->first_name = request('first_name');
+        $user->role_id = request('role_id');
+        $user->created_at = request('created_at');
+        $user->updated_at = request('updated_at');
+        $user->save();
+    }
+    /* https://laravel.com/docs/5.8/authentication */
+
+    /* public function showLogin()
+    {
+    return View::make('connection');
+    }
+
+    public function doLogin()
+    {
+        $rules = array(
+            'email'    => 'required|login', 
+            'password' => 'required|alphaNum|min:3');
+    
+    // run the validation rules on the inputs from the form
+    $validator = Validator::make(Input::all(), $rules);
+
+    // if the validator fails, redirect back to the form
+    if ($validator->fails()) {
+        return Redirect::to('login')
+            ->withErrors($validator) // send back all errors to the login form
+            ->withInput(Input::except('password'));
+    // send back the input (not the password) so that we can repopulate the form
+    }    
+    else {
+    // create our user data for the authentication
+    $userdata = array(
+        'email'     => Input::get('login'),
+        'password'  => Input::get('password')
+    );
+
+    // attempt to do the login
+    if (Auth::attempt($userdata)) {
+
+        // validation successful!
+        // redirect them to the secure section or whatever
+        // return Redirect::to('secure');
+        // for now we'll just echo success (even though echoing in a controller is bad)
+        echo 'SUCCESS!';
+    } 
+    else {        
+
+        // validation not successful, send back to form 
+        return Redirect::to('connection');
+
+    } */
+
+}
+}
     public function index()
     {
         //
