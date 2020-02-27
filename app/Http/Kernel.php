@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
 
         'admin' => \App\Http\Middleware\AdminGestion::class, //ajout des deux routes
         'user' => \App\Http\Middleware\AdminGestion::class,
+        'login' => \App\Http\Middleware\AdminGestion::class,
     ];
 
     /**
