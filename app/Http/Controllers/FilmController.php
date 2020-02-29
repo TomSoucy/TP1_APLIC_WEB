@@ -84,45 +84,6 @@ class FilmController extends Controller
 
     public function find()
     {
-
-/*         if(!empty( $_GET['rating'])){
-            $rating = $_GET['rating'];
-        }
-        else{
-            $rating != null;
-        }
-
-        if(!empty( $_GET['minLength'])){
-            $minLength = $_GET['minLength'];
-        }
-        else{
-            $minLength = 1;
-        }
-
-        if(!empty( $_GET['maxLength'])){
-            $maxLength = $_GET['maxLength'];
-        }
-        else{
-            $maxLength = 1000;
-        }
-
-        if(!empty( $_GET['word'])){
-            $word = $_GET['word'];
-        }
-        else{
-            $word = "";
-        }
-
-
-        $films = Films::where('rating', '=', $rating)
-                    ->where('length', '>', $minLength)
-                    ->where('length', '<', $maxLength)
-                    ->where('title', 'like', "%{$word}%")
-                    ->where('description', 'like', "%{$word}%")
-                    ->paginate(20);
-
-        return $films; */
-
         $query = DB::table('films');
         if(!empty( $_GET['rating'])){
             $query = $query->where('rating', '=', $_GET['rating']);
