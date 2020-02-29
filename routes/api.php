@@ -18,4 +18,5 @@ use Illuminate\Http\Request;
     Route::get('film/{idFilm}/edit','FilmController@edit'); //consulter 1 film
     Route::put('film/{idFilm}','FilmController@update'); //modification d'un film
     Route::delete('film/{idFilm}','FilmController@destroy'); //suppression d'un film
-    Route::get('film/{idFilm}/acteur','FilmController@showActor');
+    Route::get('film/{idFilm}/acteur','FilmController@showActor'); //consultation de tous les acteurs d'un film
+    Route::get('film/find/{rating?}/{minLength?}/{maxLength?}/{word?}','FilmController@find'); //consulter plusieurs films selon plusieurs parametres

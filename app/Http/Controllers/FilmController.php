@@ -8,6 +8,8 @@ use App\Http\Resources\FilmResource;
 use App\Http\Requests\filmRequest;
 use Illuminate\Support\Facades\DB;
 use App\Films;
+use App\Actors;
+use App\ActorFilm;
 
 class FilmController extends Controller
 {
@@ -49,12 +51,23 @@ class FilmController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showActor($id)
+    public function showActor($idFilm)
     {
-        $idActeur = DB::table('film_actor')->where('film_id',$id)->value('actor_id');
-        $acteur = DB::table('actors')->where('id',$idActeur)->value('firt_name', 'last_name');
 
-        return $acteur;
+/*         $actors = ActorFilm ::with('actors')->where('film_id', $idFilm)->pluck('first_name', 'last_name')->get();
+        return $actors;
+        $actors = DB ::table('ActorFilm')->where('film_id', '=', $idFilm)->join('actors', 'ActorFilm.film_id', '=', 'actors.id')->select('actors.first_name', 'actors.last_name')->get();
+        return $actors;*/
+
+        $filmActors = ActorFilm::with('actors')->where('film_id', $idFilm)->get();
+        $array = [];
+        foreach($filmActors as $filmActor){
+            $actors = $filmActor->actors;
+            foreach($actors as $actor){
+                array_push($array, array($actor->first_name => $actor->last_name));
+            }
+        }
+        return $array;
     }
 
     /**
@@ -67,6 +80,68 @@ class FilmController extends Controller
     {
         $film = Films::where('id',$idFilm)->get();
         return $film;
+    }
+
+    public function find()
+    {
+
+/*         if(!empty( $_GET['rating'])){
+            $rating = $_GET['rating'];
+        }
+        else{
+            $rating != null;
+        }
+
+        if(!empty( $_GET['minLength'])){
+            $minLength = $_GET['minLength'];
+        }
+        else{
+            $minLength = 1;
+        }
+
+        if(!empty( $_GET['maxLength'])){
+            $maxLength = $_GET['maxLength'];
+        }
+        else{
+            $maxLength = 1000;
+        }
+
+        if(!empty( $_GET['word'])){
+            $word = $_GET['word'];
+        }
+        else{
+            $word = "";
+        }
+
+
+        $films = Films::where('rating', '=', $rating)
+                    ->where('length', '>', $minLength)
+                    ->where('length', '<', $maxLength)
+                    ->where('title', 'like', "%{$word}%")
+                    ->where('description', 'like', "%{$word}%")
+                    ->paginate(20);
+
+        return $films; */
+
+        $query = DB::table('films');
+        if(!empty( $_GET['rating'])){
+            $query = $query->where('rating', '=', $_GET['rating']);
+        }
+        if(!empty( $_GET['minLength'])){
+            $query = $query->where('length', '>', $_GET['minLength']);
+        }
+        if(!empty( $_GET['maxLength'])){
+            $query = $query->where('length', '<', $_GET['maxLength']);
+        }
+        if(!empty( $_GET['word'])){
+            $word = $_GET['word'];
+            $query = $query->where('title', 'like', "%{$word}%")
+                            ->orWhere('description', 'like', "%{$word}%");
+        }
+
+        $rows = $query->get();
+
+        return $rows;
     }
 
     /**
