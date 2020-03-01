@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Film;
 use App\Http\Resources\FilmResource;
 use App\Http\Requests\filmRequest;
 use Illuminate\Support\Facades\DB;
