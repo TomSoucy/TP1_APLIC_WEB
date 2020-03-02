@@ -22,7 +22,10 @@ class Users extends ResourceCollection
             'first_name' => $this->first_name,
             'role_id' => $this->role_id,
             'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'updated_at' => $this->updated_at
+        ];
+    }
+}
             /* 
             use App\User;
             use App\Http\Resources\User as UserResource;
@@ -31,6 +34,4 @@ class Users extends ResourceCollection
             return UserResource::collection(User::all());
 }); */
 /* https://laravel.com/docs/5.8/eloquent-resources */
-        ];
-    }
-}
+        

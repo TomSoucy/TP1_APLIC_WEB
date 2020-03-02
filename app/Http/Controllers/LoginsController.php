@@ -1,15 +1,17 @@
-
 <?php
 
+//namespace App\Http\Controllers\Auth;
 namespace App\Http\Controllers;
+//namespace App\Http\AuthControllers;
 
 use Illuminate\Http\Request;
-use App\Http\Resources\Users;
 use App\User;
+//use AuthenticatesUsers;
+use App\Http\Resources\Users;
+use App\Http\Requests\userRequest;
 
-class LoginController extends Controller
+class LoginsController extends Controller
 {
-    use AuthenticatesUsers;
     /**
      * Display a listing of the resource.
      *
