@@ -14,10 +14,10 @@ use Illuminate\Http\Request;
 |
 */
     Route::post('api/film','FilmController@store');
-    Route::get('/admin', 'AdminController@index')->name('admin')->middleware('admin'); //A redefinir le AdminController@index.
-    Route::get('/user', 'AdminController@index')->name('user')->middleware('user');  
+    Route::get('login/admin', 'AdminController@redirectTo')->name('admin')->middleware('admin'); //A redefinir le AdminController@index.
+    Route::get('login/user', 'AdminController@redirectTo')->name('user')->middleware('user');  
     Route::get('login','LoginController@showLogin');
-    Route::post('login','LoginController@doLogin');
+    Route::post('login','LoginController@addUser');
     /* Route::get('films', 'FilmController@index'); //afficher tous les films
     Route::post('film','FilmController@store'); //enregistrer un film
     Route::get('film/{idFilm}/edit','FilmController@edit'); //consulter 1 film
