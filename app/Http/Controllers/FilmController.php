@@ -52,12 +52,6 @@ class FilmController extends Controller
      */
     public function showActor($idFilm)
     {
-
-/*         $actors = ActorFilm ::with('actors')->where('film_id', $idFilm)->pluck('first_name', 'last_name')->get();
-        return $actors;
-        $actors = DB ::table('ActorFilm')->where('film_id', '=', $idFilm)->join('actors', 'ActorFilm.film_id', '=', 'actors.id')->select('actors.first_name', 'actors.last_name')->get();
-        return $actors;*/
-
         $filmActors = ActorFilm::with('actors')->where('film_id', $idFilm)->get();
         $array = [];
         foreach($filmActors as $filmActor){
