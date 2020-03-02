@@ -14,10 +14,7 @@ class FilmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return Film::all();
-    }
+
 
 
     /**
@@ -26,20 +23,6 @@ class FilmController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(filmRequest $request)
-    {
-          $film = $request->validated();
-          $film = new \App\filmModels;
-          $film->title = request('title');
-          $film->description = request('description');
-          $film->release_year = request('release_year');
-          $film->language_id = request('language_id');
-          $film->length = request('length');
-          $film->rating = request('rating');
-          $film->special_features = request('special_features');
-          $film->image = request('image');
-          $film->save();
-    }
 
     public function index()
     {
