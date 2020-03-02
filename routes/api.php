@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
     Route::post('film','FilmController@store');
     Route::get('login/admin', 'LoginsController@redirectTo');//->name('admin')->middleware('admin'); 
     Route::get('login/user', 'LoginsController@redirectTo');//->name('user')->middleware('user');  
-    Route::get('login','LoginsController@showLogin');
     Route::get('login/update','LoginsController@update'); //pas sur de la route
     Route::post('login/add','LoginsController@addUser');
     Route::post('critic','CriticController@addCritic');

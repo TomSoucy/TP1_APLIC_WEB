@@ -36,4 +36,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    $user = App\User::find(1);
+
+// Creating a token without scopes...
+$token = $user->createToken('Token Name')->accessToken;
+
+// Creating a token with scopes...
+$token = $user->createToken('My Token', ['place-orders'])->accessToken;
 }

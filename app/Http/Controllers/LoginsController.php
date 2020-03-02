@@ -17,6 +17,18 @@ class LoginsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function login(Request $request)
+    {
+        $credentials = $request->only('login', 'password');
+
+        if (Auth::attempt($credentials)) {
+             $user = Auth::user();
+             $token = $user->createToken('Token Name')->accessToken;
+
+            return response()->json($token);
+        }
+    }
     public function redirectTo(){
         switch(Auth::user()->role){
             case 1:
@@ -39,7 +51,7 @@ class LoginsController extends Controller
             abort(403, 'Unauthorized to consulte another user informations.');
         }
 }
-    public function addUser(){
+    public function addUser(userRequest $request){
         $user = $request->validated();
         $user = new \App\User;
         $user->id = request('id');
@@ -66,11 +78,6 @@ class LoginsController extends Controller
         $user->created_at = request('created_at');
         $user->updated_at = request('updated_at');
         $user->save();
-    }
-
-    public function index()
-    {
-        //
     }
 
     /**
