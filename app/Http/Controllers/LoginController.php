@@ -50,6 +50,21 @@ class LoginController extends Controller
         $user->updated_at = request('updated_at');
         $user->save();
     }
+
+    public function update(filmRequest $request, $id)
+    {
+        $user = $request->validated();
+        $user = new \App\User;
+        $user->id = request('id');
+        $user->login = request('login');
+        $user->email = request('email');
+        $user->last_name = request('last_name');
+        $user->first_name = request('first_name');
+        $user->role_id = request('role_id');
+        $user->created_at = request('created_at');
+        $user->updated_at = request('updated_at');
+        $user->save();
+    }
     /* https://laravel.com/docs/5.8/authentication */
 
     /* public function showLogin()
@@ -153,10 +168,7 @@ class LoginController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+    
 
     /**
      * Remove the specified resource from storage.
