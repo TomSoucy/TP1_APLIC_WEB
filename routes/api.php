@@ -17,8 +17,8 @@ use Illuminate\Http\Request;
     Route::get('login/admin', 'LoginController@redirectTo')->name('admin')->middleware('admin'); 
     Route::get('login/user', 'LoginController@redirectTo')->name('user')->middleware('user');  
     Route::get('login','LoginController@showLogin');
-    Route::get('login','LoginController@update'); //pas sur de la route
-    Route::post('login','LoginController@addUser');
+    Route::get('login/update','LoginController@update'); //pas sur de la route
+    Route::post('login/add','LoginController@addUser');
     Route::post('critic','CriticController@addCritic');
     /* Route::get('films', 'FilmController@index'); //afficher tous les films
     Route::post('film','FilmController@store'); //enregistrer un film
