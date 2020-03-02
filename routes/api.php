@@ -13,12 +13,13 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-    Route::post('api/film','FilmController@store');
-    Route::get('login/admin', 'LoginController@redirectTo')->name('admin')->middleware('admin'); //A redefinir le AdminController@index.
+    Route::post('film','FilmController@store');
+    Route::get('login/admin', 'LoginController@redirectTo')->name('admin')->middleware('admin'); 
     Route::get('login/user', 'LoginController@redirectTo')->name('user')->middleware('user');  
     Route::get('login','LoginController@showLogin');
     Route::get('login','LoginController@update'); //pas sur de la route
     Route::post('login','LoginController@addUser');
+    Route::post('critic','CriticController@addCritic');
     /* Route::get('films', 'FilmController@index'); //afficher tous les films
     Route::post('film','FilmController@store'); //enregistrer un film
     Route::get('film/{idFilm}/edit','FilmController@edit'); //consulter 1 film
