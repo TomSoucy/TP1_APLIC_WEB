@@ -33,10 +33,10 @@ class CriticController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-        public function addCritic(criticRequest $request)
+        public function store(criticRequest $request)
     {
           $critic = $request->validated();
-          $critic = new \App\Critic;
+          $critic = new Critic;
           $critic->id = request('id');
           $critic->user_id = request('user_id');
           $critic->film_id = request('film_id');
