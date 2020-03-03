@@ -43,7 +43,7 @@ class LoginsController extends Controller
         }
     } */
 
-    public function showUser(User $user, $id)
+    public function showUser(User $user)
     {
         if(auth()->user()->id == $user->get('id')){
             return view('display', compact(['id', 'login', 'email' ,'last_name', 'first_name', 'role_id'])->toJson());

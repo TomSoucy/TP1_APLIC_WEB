@@ -24,7 +24,7 @@ use Illuminate\Http\Request;
     Route::put('login/{idCritic}','LoginsController@update'); //pas sur de la route
     Route::post('film','LoginsController@addUser');
     Route::post('critic','CriticController@store');
-    Route::get('login/{idUser}/user', 'LoginsController@showUser');
+    Route::get('login/{login}/user', 'LoginsController@showUser');
     
     /* Route::post('film','FilmController@store'); //enregistrer un film
     Route::get('film/{idFilm}/edit','FilmController@edit'); //consulter 1 film
