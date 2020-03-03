@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use Tests\TestCase;
 use App\Films;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class RouteTest extends TestCase
 {
@@ -12,27 +13,26 @@ class RouteTest extends TestCase
      *
      * @return void
      */
+    use databaseTransactions;
     public function testExample1_WHEN_indexIsCalled_THEN_allFilmsAreReceived_AND_status200IsReceived()
     {
         $response = $this->get("/api/films");
         $response->assertStatus(200);
     }
 
-/*     public function testExample2_WHEN_storeIsCalled_THEN_aFilmsIsStored_AND_status200IsReceived()
+     public function testExample2_WHEN_storeIsCalled_THEN_aFilmsIsStored_AND_status200IsReceived()
     {
-        $film = new Films;
-        $film->title = "toto2";
-        $film->description = "titis";
-        $film->release_year = 2006;
-        $film->language_id = 2;
-        $film->length = 103;
-        $film->rating = "G";
-        $film->special_features = "Commentaries";
-        $film->save();
-
-        $response = $this->post(route('/api/film'), $film);
-        $response = assertStatus(201);
-    } */
+        $response = $this->post('/api/film', [
+                                'title' => 'toto2',
+                                'description' => 'titis',
+                                'release_year' => 2006,
+                                'language_id' => 2,
+                                'length' => 103,
+                                'rating' => 'G',
+                                'special_features' => 'Commentaries'
+                            ]);
+        $response = $response->assertStatus(201);
+    }
 
     public function testExample3_WHEN_editIsCalled_WITH_idIs1_THEN_aFilmsIsReceived_AND_status200IsReceived()
     {
@@ -104,5 +104,23 @@ class RouteTest extends TestCase
     {
         $response = $this->get("/api/film/find?word=Database");
         $response->assertStatus(200);
+    }
+
+    public function testExample12_WHEN_destroyIsCalled_WITH_id_THEN_FilmIsDeletedInDB_AND_status201IsReceived()
+    {
+        $response = $this->post('/api/film', [
+            'title' => 'toto5',
+            'description' => 'titis',
+            'release_year' => 2006,
+            'language_id' => 2,
+            'length' => 103,
+            'rating' => 'G',
+            'special_features' => 'Commentaries'
+        ]);
+
+        $id = $response->id;
+
+        $response = $this->call('DELETE',"/api/film/$id");
+        $response->assertStatus(201);
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\FilmResource;
 use App\Http\Requests\filmRequest;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Response;
 use App\Films;
 use App\Actors;
 use App\ActorFilm;
@@ -31,17 +32,11 @@ class FilmController extends Controller
      */
     public function store(filmRequest $request)
     {
-
-          $film = new Films;
-          $film->title = request('title');
-          $film->description = request('description');
-          $film->release_year = request('release_year');
-          $film->language_id = request('language_id');
-          $film->length = request('length');
-          $film->rating = request('rating');
-          $film->special_features = request('special_features');
-          $film->image = request('image');
-          $film->save();
+        $film = new Films($request->all()); //permet de faire enregistrement sur une ligne et renvoit status 201
+        if($film->save()){
+            return new FilmResource($film); //ressource pour filtrer l.objet retourné au user
+            //return response()->noContent(Response::HTTP_CREATED);
+        }
     }
 
     /**
@@ -93,7 +88,7 @@ class FilmController extends Controller
                             ->orWhere('description', 'like', "%{$word}%");
         }
 
-        $rows = $query->get();
+        $rows = $query->paginate(20);
 
         return $rows;
     }
@@ -128,5 +123,6 @@ class FilmController extends Controller
     public function destroy($id)
     {
         DB::table('films')->where('id', '=', $id)->delete();
+        return response()->noContent(Response::HTTP_CREATED);
     }
 }
