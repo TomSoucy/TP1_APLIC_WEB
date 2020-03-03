@@ -66,7 +66,7 @@ class LoginsController extends Controller
         $user->save();
     }
 
-    public function update(userRequest $request, $id)
+    public function update(userRequest $request, $idCritic)
     {
         $film = Users::find($id);
         $user->id = request('id');
