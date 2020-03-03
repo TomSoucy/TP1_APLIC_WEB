@@ -63,8 +63,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         'admin' => \App\Http\Middleware\AdminGestion::class, //ajout des deux routes
-        'user' => \App\Http\Middleware\AdminGestion::class,
-        'login' => \App\Http\Middleware\AdminGestion::class,
+        
     ];
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class AdminGestion
 {
@@ -15,20 +16,20 @@ class AdminGestion
      */
     public function handle($request, Closure $next){
     if (!Auth::check()) {
-        return redirect()->route('login');
+        return false;
     }
     if (Auth::user()->isAdmin()) {
-        return redirect()->route('admin');
+        return true;
     }
     else {
-        return redirect()->route('user');
+        return false;
     }
-    //Auth::user()->isAdministrator()
+    
 }
 
 public function isAdmin()
 {
-  if($this->roles()->get('name') == 'Admin'){
+  if(Auth::user()->role()->name == 'Admin'){
    return true;
   }
   else {

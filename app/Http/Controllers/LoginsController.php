@@ -22,16 +22,19 @@ class LoginsController extends Controller
      */
 
     public function login(Request $request) {
-    $credentials = $request->only('login', 'password');
-        if (Auth::attempt($credentials)) {
-           // Authentication passed...
-           return redirect()->intended('login'); //a determiner
-        }
+        $credentials = request(['login', 'password']);
+            if (Auth::attempt($credentials)) {
+              // Authentication passed...
+              return redirect()->intended('login');
+            }
+            else{
+                abort(401, 'Login failed, please try again.');
+            }  
     }
 
     public function showUser(Users $user)
     {
-        if(auth()->user()->id == $user->get('id')){
+        if(Auth::user()->id == $user->get('id')){
             return view('display', compact(['id', 'login', 'email' ,'last_name', 'first_name', 'role_id'])->toJson());
     }
         else {

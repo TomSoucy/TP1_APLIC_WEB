@@ -46,9 +46,10 @@ class User extends Authenticatable
 public function roles() {
     return $this->belongsToMany(Role::class, 'user_role');
 }
-public function accesToToken(User $user){
+
+ public function accesToToken(User $user){
     $token = $user->createToken('Token')->accessToken;
     return (['remember_token'] => $token]);
-}
+} 
 }
 
