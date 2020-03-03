@@ -17,24 +17,24 @@ class AdminGestion
     if (!Auth::check()) {
         return redirect()->route('login');
     }
-    if (Auth::$request->role->where('name', 'Admin')->exists()) {
+    if (Auth::user()->isAdmin()) {
         return redirect()->route('admin');
-    
     }
     else {
         return redirect()->route('user');
     }
     //Auth::user()->isAdministrator()
 }
-}
-
 
 public function isAdmin()
 {
-  if($this->hasRole->name('Admin');
-   return true;tt
-  else
+  if($this->roles()->get('name') == 'Admin'){
+   return true;
+  }
+  else {
    return false;
+}
+}
 }
 
 /* public function handle($request, Closure $next) {
