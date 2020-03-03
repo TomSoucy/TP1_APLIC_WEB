@@ -48,7 +48,7 @@ public function roles() {
 }
 public function accesToToken(User $user){
     $token = $user->createToken('Token')->accessToken;
-    return (['token'] => $token]);
+    return (['remember_token'] => $token]);
 }
 }
 

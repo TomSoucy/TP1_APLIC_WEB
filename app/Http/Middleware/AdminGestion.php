@@ -17,7 +17,7 @@ class AdminGestion
     if (!Auth::check()) {
         return redirect()->route('login');
     }
-    if (Auth::user()->roles()->where('name', 'Admin')->exists()) {
+    if (Auth::$request->role->where('name', 'Admin')->exists()) {
         return redirect()->route('admin');
     
     }
@@ -28,21 +28,24 @@ class AdminGestion
 }
 }
 
+
 /* public function isAdmin()
 {
-  if($this->status == 'Admin')
+  if($this->role == 'Admin')
    return true;
   else
    return false;
-}
+} */
 
-public function handle($request, Closure $next) {
+/* public function handle($request, Closure $next) {
     if(!$request->user()->isAdmin())
     {
       return abort(404);
     }
     return $next($request);
-} */
+}  */
+
+
 
 
 //https://dev.to/kaperskyguru/multiple-role-based-authentication-in-laravel-30pc

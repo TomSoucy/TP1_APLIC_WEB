@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 //namespace App\Http\AuthControllers;
 
 use Illuminate\Http\Request;
-use App\User;
 use App\Roles;
 //use AuthenticatesUsers;
 use App\Http\Resources\Users;
@@ -22,28 +21,15 @@ class LoginsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function login() {
-        if (Auth::attempt(['login' => $email, 'password' => $password])) {
-        
+    public function login(Request $request) {
+    $credentials = $request->only('login', 'password');
+        if (Auth::attempt($credentials)) {
            // Authentication passed...
            return redirect()->intended('login'); //a determiner
         }
     }
 
-    /* public function redirectTo(){
-        switch(auth()->user()->name){
-            case 'Admin':
-                $this->redirectTo = 'login/admin'; //routes a determiner
-                return $this->redirectTo;
-                break;
-            case 'User':
-                $this->redirectTo = 'login/user'; //route a determiner
-                return $this->redirectTo;
-                break;
-        }
-    } */
-
-    public function showUser(User $user)
+    public function showUser(Users $user)
     {
         if(auth()->user()->id == $user->get('id')){
             return view('display', compact(['id', 'login', 'email' ,'last_name', 'first_name', 'role_id'])->toJson());
@@ -54,7 +40,7 @@ class LoginsController extends Controller
 }
     public function addUser(userRequest $request){
         $user = $request->validated();
-        $user = new \App\User;
+        $user = new \App\Users;
         $user->id = request('id');
         $user->login = request('login');
         $user->email = request('email');
@@ -79,6 +65,27 @@ class LoginsController extends Controller
         $user->updated_at = request('updated_at');
         $user->save();
     }
+
+public function isAdmin()
+{
+  if($this->role == 'Admin')
+   return true;
+  else
+   return false;
+}
+
+    /* public function redirectTo(){
+        switch(auth()->user()->name){
+            case 'Admin':
+                $this->redirectTo = 'login/admin'; //routes a determiner
+                return $this->redirectTo;
+                break;
+            case 'User':
+                $this->redirectTo = 'login/user'; //route a determiner
+                return $this->redirectTo;
+                break;
+        }
+    } */
 
     /**
      * Show the form for creating a new resource.

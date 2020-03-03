@@ -3,6 +3,7 @@
 use App\Http\Controllers\FilmController;
 use Illuminate\Http\Request;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,10 +22,10 @@ use Illuminate\Http\Request;
   /*   Route::get('login/admin', 'LoginsController@redirectTo');//->name('admin')->middleware('admin'); 
     Route::get('login/user', 'LoginsController@redirectTo');//->name('user')->middleware('user');  */ 
     Route::get('login', 'LoginsController@login');
-    Route::put('login/{idCritic}','LoginsController@update'); //pas sur de la route
+    Route::put('login/{idCritic}','LoginController@update'); //pas sur de la route
     Route::post('film','LoginsController@addUser');
     Route::post('critic','CriticController@store');
-    Route::get('login/{login}/user', 'LoginsController@showUser');
+    Route::get('login/showUser', 'LoginsController@showUser');
     
     /* Route::post('film','FilmController@store'); //enregistrer un film
     Route::get('film/{idFilm}/edit','FilmController@edit'); //consulter 1 film
