@@ -29,13 +29,13 @@ class AdminGestion
 }
 
 
-/* public function isAdmin()
+public function isAdmin()
 {
-  if($this->role == 'Admin')
+  if($this->hasRole->name('Admin');
    return true;
   else
    return false;
-} */
+}
 
 /* public function handle($request, Closure $next) {
     if(!$request->user()->isAdmin())
