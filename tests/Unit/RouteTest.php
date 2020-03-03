@@ -5,6 +5,8 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Films;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Laravel\Passort\Passport;
+use App\User;
 
 class RouteTest extends TestCase
 {
@@ -22,6 +24,7 @@ class RouteTest extends TestCase
 
      public function testExample2_WHEN_storeIsCalled_THEN_aFilmsIsStored_AND_status200IsReceived()
     {
+        Passport::actingAs(User::find(1));
         $response = $this->post('/api/film', [
                                 'title' => 'toto2',
                                 'description' => 'titis',
@@ -108,6 +111,7 @@ class RouteTest extends TestCase
 
     public function testExample12_WHEN_destroyIsCalled_WITH_id_THEN_FilmIsDeletedInDB_AND_status201IsReceived()
     {
+       // Passport::actingAs(User::find(1));
         $response = $this->post('/api/film', [
             'title' => 'toto5',
             'description' => 'titis',
