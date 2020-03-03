@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Roles;
+use App\User;
 //use AuthenticatesUsers;
 use App\Http\Resources\Users;
 use App\Http\Requests\userRequest;
@@ -22,17 +23,17 @@ class LoginsController extends Controller
      */
 
     public function login(Request $request) {
-        $credentials = request(['login', 'password']);
+        $credentials = $request->only(['login', 'password']);
             if (Auth::attempt($credentials)) {
-              // Authentication passed...
-              return redirect()->intended('login');
+                $token = Auth::user()->createToken('Token')->accessToken;
+                return $token;
             }
             else{
                 abort(401, 'Login failed, please try again.');
             }  
     }
 
-    public function showUser(Users $user)
+    public function showUser(User $user)
     {
         if(Auth::user()->id == $user->get('id')){
             return view('display', compact(['id', 'login', 'email' ,'last_name', 'first_name', 'role_id'])->toJson());
@@ -43,9 +44,10 @@ class LoginsController extends Controller
 }
     public function addUser(userRequest $request){
         $user = $request->validated();
-        $user = new \App\Users;
+        $user = new \App\User;
         $user->id = request('id');
         $user->login = request('login');
+        $user->password = Hash::request('password');
         $user->email = request('email');
         $user->last_name = request('last_name');
         $user->first_name = request('first_name');
@@ -57,7 +59,7 @@ class LoginsController extends Controller
 
     public function update(userRequest $request, $idCritic)
     {
-        $film = Users::find($id);
+        $film = User::find($id);
         $user->id = request('id');
         $user->login = request('login');
         $user->email = request('email');

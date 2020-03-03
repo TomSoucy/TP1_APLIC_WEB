@@ -17,7 +17,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['id', 'login', 'email', 'last_name', 'first_name', 'role_id', 'created_at', 'updated_at'];
+    protected $fillable = ['id', 'login','password', 'email', 'last_name', 'first_name', 'role_id', 'created_at', 'updated_at'];
     
 
     /**
@@ -46,10 +46,5 @@ class User extends Authenticatable
 public function roles() {
     return $this->belongsToMany(Role::class, 'user_role');
 }
-
- public function accesToToken(User $user){
-    $token = $user->createToken('Token')->accessToken;
-    return (['remember_token'] => $token]);
-} 
 }
 

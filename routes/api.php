@@ -27,4 +27,5 @@ use Illuminate\Http\Request;
     Route::put('login/{idCritic}','LoginsController@update');
     Route::post('critic','CriticController@store')->middleware('Admin');
     Route::get('login/showUser', 'LoginsController@showUser');
+    Route::post('user', 'LoginsController@addUser');
     
