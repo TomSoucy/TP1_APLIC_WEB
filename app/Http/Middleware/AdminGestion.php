@@ -14,16 +14,17 @@ class AdminGestion
      * @return mixed
      */
     public function handle($request, Closure $next){
-    
     if (!Auth::check()) {
         return redirect()->route('login');
     }
-    if (Auth::user()->role == 1) {
+    if (Auth::user()->roles()->where('name', 'Admin')->exists()) {
         return redirect()->route('admin');
+    
     }
-    if (Auth::user()->role == 2) {
+    else {
         return redirect()->route('user');
     }
+    //Auth::user()->isAdministrator()
 }
 }
 

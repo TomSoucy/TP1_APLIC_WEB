@@ -13,9 +13,14 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-    Route::post('film','FilmController@store');
-    Route::get('login/admin', 'LoginsController@redirectTo');//->name('admin')->middleware('admin'); 
-    Route::get('login/user', 'LoginsController@redirectTo');//->name('user')->middleware('user');  
+    Route::post('film','FilmController@store')->middleware('auth:api');//exemple pour protéger certaines routes(powerpoint de la prof)
+    /* Route::middleware('auth')->group( function(){
+        // mettre les routes ici
+        pour appliquer le middleware a plusieurs routes
+        } */
+  /*   Route::get('login/admin', 'LoginsController@redirectTo');//->name('admin')->middleware('admin'); 
+    Route::get('login/user', 'LoginsController@redirectTo');//->name('user')->middleware('user');  */ 
+    Route::get('login', 'LoginsController@login');
     Route::get('login/update','LoginsController@update'); //pas sur de la route
     Route::post('login/add','LoginsController@addUser');
     Route::post('critic','CriticController@store');

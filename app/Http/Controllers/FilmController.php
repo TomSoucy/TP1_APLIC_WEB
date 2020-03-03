@@ -50,6 +50,7 @@ class FilmController extends Controller
           $film->image = request('image');
           $film->save();
     }
+    /*  */
 
     /**
      * Display the specified resource.
@@ -131,6 +132,7 @@ class FilmController extends Controller
         $film->special_features = request('special_features');
         $film->image = request('image');
         $film->save();
+        /*  */
     }
 
     /**

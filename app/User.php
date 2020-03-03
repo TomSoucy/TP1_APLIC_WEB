@@ -10,6 +10,7 @@ use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasApiTokens, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -36,11 +37,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    $user = App\User::find(1);
 
 // Creating a token without scopes...
-$token = $user->createToken('Token Name')->accessToken;
+//$token = $user->createToken('Token Name')->accessToken;
 
 // Creating a token with scopes...
-$token = $user->createToken('My Token', ['place-orders'])->accessToken;
+//$token = $user->createToken('My Token', ['place-orders'])->accessToken;
+public function roles() {
+    return $this->belongsToMany(Role::class, 'user_role');
 }
+public function accesToToken(User $user){
+    $token = $user->createToken('Token')->accessToken;
+    return (['token'] => $token]);
+}
+}
+

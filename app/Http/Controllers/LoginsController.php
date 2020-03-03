@@ -6,9 +6,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Roles;
 //use AuthenticatesUsers;
 use App\Http\Resources\Users;
 use App\Http\Requests\userRequest;
+use Illuminate\Support\Facades\Auth;//acceder aux infos d'authenfication
+//powerpoint prof: file:///D:/Utilisateurs/Proprio/Downloads/Theorie_-_Laravel_Passport.pdf
+
 
 class LoginsController extends Controller
 {
@@ -18,29 +22,26 @@ class LoginsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function login(Request $request)
-    {
-        $credentials = $request->only('login', 'password');
-
-        if (Auth::attempt($credentials)) {
-             $user = Auth::user();
-             $token = $user->createToken('Token Name')->accessToken;
-
-            return response()->json($token);
+    public function login() {
+        if (Auth::attempt(['login' => $email, 'password' => $password])) {
+        
+           // Authentication passed...
+           return redirect()->intended('login'); //a determiner
         }
     }
-    public function redirectTo(){
-        switch(Auth::user()->role){
-            case 1:
+
+    /* public function redirectTo(){
+        switch(auth()->user()->name){
+            case 'Admin':
                 $this->redirectTo = 'login/admin'; //routes a determiner
                 return $this->redirectTo;
                 break;
-            case 2:
+            case 'User':
                 $this->redirectTo = 'login/user'; //route a determiner
                 return $this->redirectTo;
                 break;
         }
-    }
+    } */
 
     public function showUser(User $user)
     {
@@ -67,8 +68,7 @@ class LoginsController extends Controller
 
     public function update(userRequest $request, $id)
     {
-        $user = $request->validated();
-        $user = new \App\User;
+        $film = Users::find($id);
         $user->id = request('id');
         $user->login = request('login');
         $user->email = request('email');
