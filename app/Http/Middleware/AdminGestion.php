@@ -32,7 +32,7 @@ class AdminGestion
 public function isAdmin()
 {
   if($this->hasRole->name('Admin');
-   return true;
+   return true;tt
   else
    return false;
 }
