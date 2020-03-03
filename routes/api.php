@@ -3,6 +3,7 @@
 use App\Http\Controllers\FilmController;
 use Illuminate\Http\Request;
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,3 +21,11 @@ use Illuminate\Http\Request;
     Route::delete('film/{idFilm}','FilmController@destroy'); //suppression d'un film
     Route::get('film/{idFilm}/acteur','FilmController@showActor'); //consultation de tous les acteurs d'un film
     Route::get('film/find','FilmController@find'); //consulter plusieurs films selon plusieurs parametres
+ 
+    
+    Route::get('login', 'LoginsController@login');
+    Route::put('login/{idCritic}','LoginController@update'); 
+    Route::post('film','LoginsController@addUser');
+    Route::post('critic','CriticController@store');
+    Route::get('login/showUser', 'LoginsController@showUser');
+    
