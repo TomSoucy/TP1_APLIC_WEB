@@ -50,8 +50,8 @@ class LoginsController extends Controller
         $user->last_name = request('last_name');
         $user->first_name = request('first_name');
         $user->role_id = request('role_id');
-        $user->created_at = request('created_at');
-        $user->updated_at = request('updated_at');
+        //$user->created_at = request('created_at');
+        //$user->updated_at = request('updated_at');
         $user->save();
     }
 
@@ -64,8 +64,8 @@ class LoginsController extends Controller
         $user->last_name = request('last_name');
         $user->first_name = request('first_name');
         $user->role_id = request('role_id');
-        $user->created_at = request('created_at');
-        $user->updated_at = request('updated_at');
+        //$user->created_at = request('created_at');
+        //$user->updated_at = request('updated_at');
         $user->save();
     }
 
