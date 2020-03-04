@@ -24,13 +24,12 @@ class userRequest extends FormRequest
     public function rules()
     {
         return [
-            'id'=>'required|max:1|Numeric',
             'login'=> 'required|max:50',
             'password'=> 'required|max:50',
             'email'=>'required|max:50',
             'last_name'=> 'max:50',
             'first_name'=>'max:50',
-            'role_id'=> 'required|max:1|Numeric'
+            'role_id'=> 'required|Numeric'
         ];
     }
 }

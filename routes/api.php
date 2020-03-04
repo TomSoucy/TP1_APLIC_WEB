@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\FilmController;
 use Illuminate\Http\Request;
-
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,14 +17,14 @@ use Illuminate\Http\Request;
     Route::get('films', 'FilmController@index'); //afficher tous les films
     Route::post('film','FilmController@store'); //enregistrer un film
     Route::get('film/{idFilm}/edit','FilmController@edit'); //consulter 1 film
-    Route::put('film/{idFilm}','FilmController@update')->middleware('admin'); //modification d'un film
+    Route::put('film/{idFilm}','FilmController@update'); //modification d'un film
     Route::delete('film/{idFilm}','FilmController@destroy'); //suppression d'un film
     Route::get('film/{idFilm}/acteur','FilmController@showActor'); //consultation de tous les acteurs d'un film
     Route::get('film/find','FilmController@find'); //consulter plusieurs films selon plusieurs parametres
 
+    Route::post('critic','CriticController@store'); //ajouter critique film
 
-    Route::get('login', 'LoginsController@login');
-    Route::put('login/{idCritic}','LoginController@update');
-    Route::post('critic','CriticController@store');
-    Route::get('login/showUser', 'LoginsController@showUser');
+    Route::post('user','LoginsController@store'); //creer un user
+    Route::put('user/{idUser}','LoginsController@update'); //modification un user
+    Route::get('user','LoginsController@index');
 

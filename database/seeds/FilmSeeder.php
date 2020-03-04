@@ -11,17 +11,20 @@ class FilmSeeder extends Seeder
      */
     public function run()
     {
-        $sql1 = file_get_contents(database_path() . '/seeds/languages.sql'); 
-        
-        $sql2 = file_get_contents(database_path() . '/seeds/actors.sql'); 
-        
-        $sql3 = file_get_contents(database_path() . '/seeds/films.sql'); 
-       
+        $sql1 = file_get_contents(database_path() . '/seeds/languages.sql');
+
+        $sql2 = file_get_contents(database_path() . '/seeds/actors.sql');
+
+        $sql3 = file_get_contents(database_path() . '/seeds/films.sql');
+
         $sql4 = file_get_contents(database_path() . '/seeds/film_actor.sql');
 
-        DB::statement($sql1); 
+        $sql5 = file_get_contents(database_path() . '/seeds/roles.sql');
+
+        DB::statement($sql1);
         DB::statement($sql2);
         DB::statement($sql3);
         DB::statement($sql4);
+        DB::statement($sql5);
     }
 }

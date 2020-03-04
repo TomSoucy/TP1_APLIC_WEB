@@ -24,7 +24,7 @@ class RouteTest extends TestCase
 
      public function testExample2_WHEN_storeIsCalled_THEN_aFilmsIsStored_AND_status200IsReceived()
     {
-        Passport::actingAs(User::find(1));
+        //Passport::actingAs(User::find(1));
         $response = $this->post('/api/film', [
                                 'title' => 'toto2',
                                 'description' => 'titis',
@@ -109,22 +109,20 @@ class RouteTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testExample12_WHEN_destroyIsCalled_WITH_id_THEN_FilmIsDeletedInDB_AND_status201IsReceived()
+    public function testExample12_WHEN_destroyIsCalled_WITH_idIs100_THEN_FilmIsDeletedInDB_AND_status201IsReceived()
     {
-       // Passport::actingAs(User::find(1));
-        $response = $this->post('/api/film', [
-            'title' => 'toto5',
-            'description' => 'titis',
-            'release_year' => 2006,
+        $id = 999;
+        $newFilm = Films::create([
+            'id'=> $id,
+            'title' => 'test',
+            'description' => 'test',
+            'release_year' => 2000,
             'language_id' => 2,
-            'length' => 103,
+            'length' => 100,
             'rating' => 'G',
             'special_features' => 'Commentaries'
         ]);
-
-        $id = $response->id;
-
-        $response = $this->call('DELETE',"/api/film/$id");
+        $response = $this->json('delete',"/api/film/$id");
         $response->assertStatus(201);
     }
 }

@@ -6,193 +6,54 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Roles;
-//use AuthenticatesUsers;
+use Hash;
+use App\User;
 use App\Http\Resources\Users;
 use App\Http\Requests\userRequest;
-use Illuminate\Support\Facades\Auth;//acceder aux infos d'authenfication
-//powerpoint prof: file:///D:/Utilisateurs/Proprio/Downloads/Theorie_-_Laravel_Passport.pdf
-
+use Illuminate\Support\Facades\Auth;
 
 class LoginsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    public function login(Request $request) {
-    $credentials = $request->only('login', 'password');
-        if (Auth::attempt($credentials)) {
-           // Authentication passed...
-           return redirect()->intended('login'); //a determiner
-        }
+    public function index(Request $request){
+        echo $request;
     }
 
-    public function showUser(Users $user)
-    {
-        if(auth()->user()->id == $user->get('id')){
-            return view('display', compact(['id', 'login', 'email' ,'last_name', 'first_name', 'role_id'])->toJson());
+    public function store(userRequest $request){
+        $request->merge(['password' => Hash::make($request->password)]);
+        $user = new User($request->all());
+        $user->save();
+
+        $token = $user->createToken('Token')->accessToken;
+        return $token;
     }
-        else {
-            abort(403, 'Unauthorized to consulte another user informations.');
+
+
+    public function update(Request $request, $id){
+        $request->merge(['password' => Hash::make($request->password)]);
+        $user = User::find($id);
+        if(request("last_name") != ""){
+            $user->last_name = request('last_name');
         }
-}
-    public function addUser(userRequest $request){
-        $user = $request->validated();
-        $user = new \App\Users;
-        $user->id = request('id');
-        $user->login = request('login');
-        $user->email = request('email');
-        $user->last_name = request('last_name');
-        $user->first_name = request('first_name');
-        $user->role_id = request('role_id');
-        $user->created_at = request('created_at');
-        $user->updated_at = request('updated_at');
+        if(request("email") != ""){
+            $user->email = request('email');
+        }
+        if(request('password') != ""){
+            $user->password = request('password');
+        }
+        if(request('login') != ""){
+            $user->login = request('login');
+        }
+        if(request('first_name') != ""){
+            $user->first_name = request('first_name');
+        }
+        if(request('role_id') != ""){
+            $user->role_id = request('role_id');
+        }
         $user->save();
     }
-
-    public function update(userRequest $request, $idCritic)
-    {
-        $film = Users::find($id);
-        $user->id = request('id');
-        $user->login = request('login');
-        $user->email = request('email');
-        $user->last_name = request('last_name');
-        $user->first_name = request('first_name');
-        $user->role_id = request('role_id');
-        $user->created_at = request('created_at');
-        $user->updated_at = request('updated_at');
-        $user->save();
-    }
-
-public function isAdmin()
-{
-  if($this->role == 'Admin')
-   return true;
-  else
-   return false;
+    /*
+eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYTQxYmQwOWFkNDExYzAwNGY1NWEwYjBmY2FlMTQ5ZjUwYWNlNmI4OWI5MWIxNjUyNDAwZWU5ZTYzMzBjNjExMTdlMDIzMzRhMWZlODk0MDciLCJpYXQiOjE1ODMzNTU4MTMsIm5iZiI6MTU4MzM1NTgxMywiZXhwIjoxNjE0ODkxODEzLCJzdWIiOiI2Iiwic2NvcGVzIjpbXX0.Gf3iy4uVosPe-ui1ERVNMm8vyk0Bf9TRq7OfjcCkTUJzrTDYEzSgit8zuN0xj9yS0YSaYOWmLD2hLuZy95xc-1PPg60K2q8quhZd4OtpGKlg7f_uqjfm9A0avV5a9porf_uL9VOfnc7Gbxh1HvO286jNMXDGIMATUVbvlr5NZR97NkgZH3Nqjc2ld3CghVQGEbnoK0Hr3Lu6vSHBQ8G7ZIS_wuU43c_9lql68p8-8jetagx82Uq7y1Zxlwm5T764TrcAcQ98LQXEGvHQdbz7RDy8HphWryXMRhfzk3kNHCJU_UID0RA6_MDah4HRoy4oawZsqrj2jlQdfuiGQvGOA7LOoqqaSlCWu8d4zu5aIrEgvqVFwsegmD41oDO_oddHSLxYAnJ3RqLoSrTl2I9xO06RfNSh9d49DCn5iZcwaSEWwwAFTnp8CnPZQFIOP-VmmqLhx0nU3h3gu5LQ7jGd1YsSm9oWXB5NTmtl4Xnmmf1dJ8usVxsOIlSFCAnUaKlBYZcQkCQksgFGh7qTTibLZS2UJv4P9wLC2b73qq1Z0QAXaRGMCa_UuojL-8pcokZK07YrpBpOhrm_Cbq5evUtdpBQISqsTq3dfLeJUP4Eoo5Ejle0RTeAju7xPfku6qSw0jXZRkNKZSfGwx9Pd_c3PpgcHBjV8z8tjd3gjDbXOpw
+    */
 }
 
-    /* public function redirectTo(){
-        switch(auth()->user()->name){
-            case 'Admin':
-                $this->redirectTo = 'login/admin'; //routes a determiner
-                return $this->redirectTo;
-                break;
-            case 'User':
-                $this->redirectTo = 'login/user'; //route a determiner
-                return $this->redirectTo;
-                break;
-        }
-    } */
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-}
-    /* https://laravel.com/docs/5.8/authentication */
-
-    /* public function showLogin()
-    {
-    return View::make('connection');
-    }
-
-    public function doLogin()
-    {
-        $rules = array(
-            'email'    => 'required|login', 
-            'password' => 'required|alphaNum|min:3');
-    
-    // run the validation rules on the inputs from the form
-    $validator = Validator::make(Input::all(), $rules);
-
-    // if the validator fails, redirect back to the form
-    if ($validator->fails()) {
-        return Redirect::to('login')
-            ->withErrors($validator) // send back all errors to the login form
-            ->withInput(Input::except('password'));
-    // send back the input (not the password) so that we can repopulate the form
-    }    
-    else {
-    // create our user data for the authentication
-    $userdata = array(
-        'email'     => Input::get('login'),
-        'password'  => Input::get('password')
-    );
-
-    // attempt to do the login
-    if (Auth::attempt($userdata)) {
-
-        // validation successful!
-        // redirect them to the secure section or whatever
-        // return Redirect::to('secure');
-        // for now we'll just echo success (even though echoing in a controller is bad)
-        echo 'SUCCESS!';
-    } 
-    else {        
-
-        // validation not successful, send back to form 
-        return Redirect::to('connection');
-
-    } */
 
