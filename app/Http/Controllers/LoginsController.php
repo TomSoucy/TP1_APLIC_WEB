@@ -23,8 +23,10 @@ class LoginsController extends Controller
      */
 
     public function login(Request $request) {
-        $credentials = $request->only(['login', 'password']);
-            if (Auth::attempt($credentials)) {
+        
+        /* $credentials = $request->only('login', 'password');
+        echo $credentials; */
+        if (Auth::attempt($request->only('login', 'password'))){
                 $token = Auth::user()->createToken('Token')->accessToken;
                 return $token;
             }
@@ -57,9 +59,10 @@ class LoginsController extends Controller
         $user->save();
     }
 
-    public function update(userRequest $request, $idCritic)
-    {
-        $film = User::find($id);
+    public function update(userRequest $request, $id)
+    {   
+        $user = User::find($id);
+        if(Auth::user()->id == $user->get('id')){
         $user->id = request('id');
         $user->login = request('login');
         $user->email = request('email');
@@ -69,6 +72,7 @@ class LoginsController extends Controller
         //$user->created_at = request('created_at');
         //$user->updated_at = request('updated_at');
         $user->save();
+        }
     }
 
 public function isAdmin()

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FilmController;
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Http\Request;
 
 
