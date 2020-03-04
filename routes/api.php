@@ -24,7 +24,7 @@ use Illuminate\Http\Request;
     Route::get('film/find','FilmController@find'); //consulter plusieurs films selon plusieurs parametres
  
     
-    Route::get('login', 'LoginsController@login');
+    Route::get('login', 'LoginController@login');
     Route::put('login/{idCritic}','LoginsController@update');
     Route::post('critic','CriticController@store')->middleware('Admin');
     Route::get('login/showUser', 'LoginsController@showUser');

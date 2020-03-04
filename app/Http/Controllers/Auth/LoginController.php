@@ -44,6 +44,19 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function login(Request $request) {
+        
+        /* $credentialcredentialss = $request->only('login', 'password');
+        echo $; */
+        if (Auth::attempt($request->only('login', 'password'))){
+                $token = Auth::user()->createToken('Token')->accessToken;
+                return $token;
+            }
+            else{
+                abort(401, 'Login failed, please try again.');
+            }  
+    }
+
     
     
         public function showUser(Users $user)
